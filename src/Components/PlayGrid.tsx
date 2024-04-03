@@ -6,7 +6,7 @@ import { useState } from "react";
 const PlayGrid = () => {
 
   const [tiles, setTiles] = useState<TileProps>()
-
+  
   const numRows = 3;
   const numCols = 3;
   const gridBoxes = [];

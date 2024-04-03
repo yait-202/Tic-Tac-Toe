@@ -3,15 +3,25 @@ import { useState } from "react";
 import { RxCross1 } from "react-icons/rx";
 import { PiNumberZeroDuotone } from "react-icons/pi";
 
-
+interface TileProps{
+  id: number,
+  value: string,
+  isActivated: boolean;
+}
 
 export const Tile = () => {
   
+  //Setting the player's move
+  const [player, setPlayer] = useState(false);
+
+  const handleClick = ()=> {
+    setPlayer(!player);
+  }
+
   return (
     <div>
       <Button
-      onClick={()=>console.log("click")
-}
+      onClick={handleClick}
       bg="white"
       h="120px"
       w="120px"
