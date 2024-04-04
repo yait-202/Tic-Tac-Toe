@@ -1,12 +1,12 @@
 import { Flex } from "@chakra-ui/react";
 import "./App.css";
-import PlayGrid from "./Components/PlayGrid";
+import Game from "./Components/Game";
 
 function App() {
 
   return (
     <Flex>
-      <PlayGrid></PlayGrid>
+      <Game></Game>
       </Flex>
   );
 }

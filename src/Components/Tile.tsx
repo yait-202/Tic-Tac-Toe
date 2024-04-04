@@ -1,27 +1,18 @@
 import { Button } from "@chakra-ui/react";
-import { useState } from "react";
 import { RxCross1 } from "react-icons/rx";
 import { PiNumberZeroDuotone } from "react-icons/pi";
 
-interface TileProps{
-  id: number,
-  value: string,
-  isActivated: boolean;
+interface TileProps {
+  value: string | null;
+  handleTileClick: () => void;
 }
 
-export const Tile = () => {
-  
-  //Setting the player's move
-  const [player, setPlayer] = useState(false);
-
-  const handleClick = ()=> {
-    setPlayer(!player);
-  }
+export const Tile: React.FC<TileProps> = ({value, handleTileClick}) => {
 
   return (
     <div>
       <Button
-      onClick={handleClick}
+      onClick={handleTileClick}
       bg="white"
       h="120px"
       w="120px"
