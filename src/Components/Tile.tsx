@@ -1,6 +1,4 @@
 import { Button } from "@chakra-ui/react";
-import { RxCross1 } from "react-icons/rx";
-import { PiNumberZeroDuotone } from "react-icons/pi";
 
 interface TileProps {
   value: string | null;

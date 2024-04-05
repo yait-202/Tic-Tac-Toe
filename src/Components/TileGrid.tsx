@@ -1,6 +1,5 @@
 import { SimpleGrid } from "@chakra-ui/react";
 import { Tile } from "./Tile";
-import { useState } from "react";
 
 interface TileGridProps {
   board: (string | null)[];
@@ -8,11 +7,7 @@ interface TileGridProps {
   onTileClick: (index: number) => void;
 }
 
-const TileGrid: React.FC<TileGridProps> = ({
-  board,
-  currentPlayer,
-  onTileClick,
-}) => {
+const TileGrid: React.FC<TileGridProps> = ({ board, onTileClick }) => {
   return (
     <SimpleGrid
       columns={3}

@@ -23,6 +23,7 @@ const Game: React.FC = () => {
   const [board, setBoard] = useState(initial_board);
   const [currentPlayer, setCurrentPlayer] = useState("X");
   const [isClickEnabled, setClickEnabled] = useState(true);
+
   const handleTileClick = (index: number) => {
     if (board[index] === null && isClickEnabled) {
       const newBoard = [...board];
