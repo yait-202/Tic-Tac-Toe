@@ -1,38 +1,23 @@
 // Game.tsx
-import React, { useState } from "react";
-import TileGrid from "./TileGrid";
+import React, { useCallback, useMemo, useState } from "react";
+import TileGrid from "./Components/TileGrid/TileGrid";
 import { TbReload } from "react-icons/tb";
 import { Button } from "@chakra-ui/react";
+import { winCombinations } from "./const";
+
+const X_KEY = "X";
+const O_KEY = "O";
+
 const Game: React.FC = () => {
-  const winCombinations = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    //Horizontal
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    //Vertical
-    [0, 4, 8],
-    [2, 4, 6],
-    //Diagonal
-  ];
-  const initial_board = Array<string | null>(9).fill(null);
-
   const [winner, setWinner] = useState<string | null>(null);
-  const [board, setBoard] = useState(initial_board);
-  const [currentPlayer, setCurrentPlayer] = useState("X");
-  const [isClickEnabled, setClickEnabled] = useState(true);
+  const initial_board = useMemo(
+    () => Array<string | null>(9).fill(null),
+    [winner]
+  );
 
-  const handleTileClick = (index: number) => {
-    if (board[index] === null && isClickEnabled) {
-      const newBoard = [...board];
-      newBoard[index] = currentPlayer;
-      setBoard(newBoard);
-      setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
-      checkWin(newBoard, currentPlayer);
-    }
-  };
+  const [board, setBoard] = useState(initial_board);
+  const [currentPlayer, setCurrentPlayer] = useState(X_KEY);
+  const [isClickEnabled, setClickEnabled] = useState(true);
 
   const checkWin = (currentBoard: (string | null)[], player: string) => {
     for (let currentCondition of winCombinations) {
@@ -48,11 +33,25 @@ const Game: React.FC = () => {
         return;
       }
     }
+
     if (!currentBoard.includes(null)) {
       setWinner("Draw");
       setClickEnabled(false);
     }
-  };
+  }; // useCallback
+
+  const handleTileClick = useCallback(
+    (index: number) => {
+      if (board[index] === null && isClickEnabled) {
+        const newBoard = [...board];
+        newBoard[index] = currentPlayer;
+        setBoard(newBoard);
+        setCurrentPlayer(currentPlayer === X_KEY ? O_KEY : X_KEY);
+        checkWin(newBoard, currentPlayer);
+      }
+    },
+    [board, setBoard, currentPlayer, setCurrentPlayer]
+  );
 
   return (
     <div
@@ -64,12 +63,14 @@ const Game: React.FC = () => {
         currentPlayer={currentPlayer}
         onTileClick={handleTileClick}
       />
-      {!isClickEnabled && (
+      {winner != null && (
         <Button
           minWidth="40vh"
           onClick={() => {
             setBoard(initial_board);
             setClickEnabled(true);
+            setWinner(null);
+            setCurrentPlayer(X_KEY);
           }}
         >
           Play again

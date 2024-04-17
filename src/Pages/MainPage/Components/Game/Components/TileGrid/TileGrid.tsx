@@ -1,5 +1,5 @@
 import { SimpleGrid } from "@chakra-ui/react";
-import { Tile } from "./Tile";
+import { Tile } from "./Components/Tile/Tile";
 
 interface TileGridProps {
   board: (string | null)[];
